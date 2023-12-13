@@ -28,6 +28,7 @@ assert len(examples) > 0
 vertexai.init(project="eepow-project", location="us-central1")
 chat_model = ChatModel.from_pretrained("chat-bison")
 parameters = {
+    "candidate_count": 1,
     "max_output_tokens": 2048,
     "temperature": 0.1,
     "top_p": 0.8,
@@ -50,7 +51,7 @@ def predict():
   else:
       x={}
   data=x["text"]  # text
-  response = chat.send_message(data, **parameters)
+  response = chat.send_message(data, )
   response = jsonify(response.text)
   response.headers.add('Access-Control-Allow-Origin', '*')
   return response

@@ -1,4 +1,4 @@
-FROM python:3.9
+FROM python:3.11
 
 EXPOSE 8080
 ENV PORT 8080
@@ -12,8 +12,8 @@ RUN chown userweb:userweb /home
 USER userweb
 
 COPY . /home
-RUN pip install -r /home/requirements.txt
+RUN pip install --upgrade pip
 
-RUN pip install pandas
+RUN pip install -r /home/requirements.txt
 
 CMD python3 /home/model.py
