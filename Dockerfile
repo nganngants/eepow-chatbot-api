@@ -12,7 +12,7 @@ RUN chown userweb:userweb /home
 USER userweb
 
 COPY . /home
-RUN pip install --upgrade pip
+RUN python3 -m pip install --upgrade pip
 
 RUN pip install -r /home/requirements.txt
 
