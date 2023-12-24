@@ -54,7 +54,7 @@ def recreate_chat_model():
 
 # Schedule the job every 10 minutes
 scheduler = BackgroundScheduler()
-scheduler.add_job(recreate_chat_model, 'interval', minutes=10)
+scheduler.add_job(recreate_chat_model, 'interval', minutes=1)
 scheduler.start()
 
 app = Flask(__name__)
