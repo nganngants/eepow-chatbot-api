@@ -45,17 +45,17 @@ def create_chat_model():
         examples=examples
     )
 
-# Create the chat model initially
-create_chat_model()
-
 def recreate_chat_model():
     # print("Recreating chat model...")
     create_chat_model()
 
+# Create the chat model initially
+create_chat_model()
+
 # Schedule the job every 10 minutes
-scheduler = BackgroundScheduler()
-scheduler.add_job(recreate_chat_model, 'interval', minutes=1)
-scheduler.start()
+# scheduler = BackgroundScheduler()
+# scheduler.add_job(recreate_chat_model, 'interval', minutes=1)
+# scheduler.start()
 
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
@@ -63,6 +63,11 @@ app.config["SESSION_TYPE"] = "filesystem"
 
 Session(app)
 CORS(app, supports_credentials=True)
+
+@app.route('/refresh', methods=['POST'])
+def refresh():
+    recreate_chat_model()
+    return jsonify({"status": "success", "message": "Chat model recreated."})
 
 @app.route('/predict', methods= ['POST'])
 def predict():
